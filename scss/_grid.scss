@@ -1,0 +1,92 @@
+
+
+// Define some grid vars
+
+$site-wrapper: 980px;
+$gutter:       40px;
+
+$col-1-1: 100%;
+$col-3-4: 75%;
+$col-2-3: 66.66%;
+$col-3-5: 60%;
+$col-1-2: 50%;
+$col-2-5: 40%;
+$col-1-3: 33.33%;
+$col-1-4: 25%;
+$col-1-5: 20%;
+$col-1-8: 12.5%;
+
+$desktop:     1020px;
+$tablet:      768px;
+$mini-tablet: 620px;
+$mobile:      480px;
+
+
+// Mixins
+
+@mixin bp( $point ) {
+	@media ( max-width: $point ) { @content; }
+}
+
+
+// Grid selectors
+.site-wrapper {
+	max-width: $site-wrapper;
+	margin: 0 auto;
+	background: #fff;
+}
+
+.grid { width: 100%; padding: 0 20px; }
+
+[class*='col-'] {
+	float: left;
+}
+
+.col-1-1 { width: $col-1-1; }
+.col-3-4 { width: $col-3-4; }
+.col-2-3 { width: $col-2-3; }
+.col-3-5 { width: $col-3-5; }
+.col-1-2 { width: $col-1-2; }
+.col-2-5 { width: $col-2-5; }
+.col-1-3 { width: $col-1-3; }
+.col-1-4 { width: $col-1-4; }
+.col-1-8 { width: $col-1-8; }
+
+.grid:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+[class*='col-'] {
+	padding-right: $gutter;
+}
+[class*='col-1-1'] {
+	padding-right: 0;
+}
+[class*='col-']:last-of-type {
+	padding-right: 0;
+}
+[class*='col-1-1']:last-of-type {
+	margin-right: 20px;
+
+	@include bp(tablet) {
+		padding-right: 0;
+	}
+}
+
+.full.grid {
+	padding-right: 0;
+
+	[class*='col-'] {
+		padding: 0 ($gutter) / 2 0 0;
+	}
+}
+
+
