@@ -1,11 +1,13 @@
 
+@import 'grid-config';
 @import 'normalize';
 @import 'open-sans';
-@import 'grid';
+
 
 $primary:   #2e3e4f;
 $secondary: #d63e23;
 $tertiary:  #f1e6dc;
+
 
 body {
 	background: $tertiary;
@@ -15,15 +17,15 @@ body {
 
 .logo {
 	height: 80px;
-	margin: 20px 0 20px $col-1-5;
+	margin: 20px 0 20px 20%;
 	background: $primary;
 	border: none;
-background:
+	background:
 		linear-gradient(135deg, transparent 40px, $primary 0) top left,
 		linear-gradient(225deg, transparent 40px, $primary 0) top right,
 		linear-gradient(315deg, transparent 40px, $primary 0) bottom right,
 		linear-gradient(45deg,  transparent 40px, $primary 0) bottom left;
-	background-size: 50.5% 50%; // Haxxor!
+	background-size: 50.5% 50%;
 	background-repeat: no-repeat;
 	font-size: 42px;
 	font-weight: 900;
@@ -33,36 +35,26 @@ background:
 	text-shadow: 3px 3px 0px $secondary;
 	text-transform: uppercase;
 	letter-spacing: 3px;
-}
 
-.site-wrapper { padding: 20px 0; background: #fff; }
-
-
-.my-good-looking-boxes {
-
-	&.responsive > .col-1-4 {
-		@include bp( $mini-tablet ) {
-			width: $col-1-2;
-//			margin-bottom: 20px;
-
-			&:nth-child(odd) {
-				clear: left;
-			}
-		}
-		@include bp( $mobile ) {
-			width: $col-1-1;
-			clear: left;
-
-			&:nth-child(even) {
-				clear: none;
-			}
+	&.col-3-5 {
+		@include bp( $tablet ) {
+			width: 100%;
+			margin-left: 0;
 		}
 	}
+
+	// @include bp( $tablet ) {
+	// 	height: 40px;
+	// 	font-size: 30px;
+	// 	line-height: 40px;
+	// }
+	// @include bp( $mini-tablet ) {
+	// 	font-size: 24px;
+	// }
 }
 
+
 .box {
-	margin-top: 20px;
-	padding: 50px 0;
 	background: $secondary;
 	font-size: 24px;
 	font-weight: 700;

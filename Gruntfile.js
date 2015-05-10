@@ -20,7 +20,8 @@ module.exports = function( grunt ) {
 		sass: {
 			dist: {
 				files: {
-					'css/style.css': 'scss/style.scss'
+					'css/grid.css': 'scss/grid.scss',
+					'css/irrelevant-for-the-grid.css': 'scss/irrelevant-for-the-grid.scss'
 				}
 			}
 		}

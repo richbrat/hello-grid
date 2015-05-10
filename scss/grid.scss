@@ -1,0 +1,129 @@
+
+
+// TODO:
+// Ingen vertikal margin i griddet
+// Rensa järnet bland grid related styles
+
+
+@import 'grid-config';
+
+.rage-wrapper {
+	width: 100%;
+}
+
+.rage-grid {
+	max-width: $site-wrapper;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+.rage { margin: 20px 0; padding: 20px; }
+
+// Grid selectors
+.site-wrapper {
+	max-width: $site-wrapper;
+	margin: 0 auto;
+	background: #fff;
+}
+
+.grid { width: 100%; padding: 0 20px; }
+
+[class*='col-'] {
+	float: left;
+}
+
+.col-1-1 { width: $col-1-1; }
+.col-3-4 { width: $col-3-4; }
+.col-2-3 { width: $col-2-3; }
+.col-3-5 { width: $col-3-5; }
+.col-1-2 { width: $col-1-2; }
+.col-2-5 { width: $col-2-5; }
+.col-1-3 { width: $col-1-3; }
+.col-1-4 { width: $col-1-4; }
+.col-1-8 { width: $col-1-8; }
+
+.grid:after, .rage-grid:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+*, *:after, *:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+[class*='col-'] {
+	padding-right: $gutter;
+}
+[class*='col-1-1'] {
+	padding-right: 0;
+}
+[class*='col-']:last-of-type {
+	padding-right: 0;
+}
+[class*='col-1-1']:last-of-type {
+	margin-right: 20px;
+
+	@include bp(tablet) {
+		padding-right: 0;
+	}
+}
+
+.full.grid, .full.rage-grid {
+	padding-right: 0;
+
+	[class*='col-'] {
+		padding: 0 ($gutter) / 2 0 0;
+	}
+}
+
+// ###########################################################################
+// 
+// And that was the grid! Beyond this point is only grid related styles making 
+// those cols look nice.
+// 
+// ###########################################################################
+
+
+.site-wrapper { padding: 20px 0; background: #fff; }
+
+.full-background {
+	padding-bottom: 20px;
+	background: #2e3e4f;
+}
+
+.standard-page-article {
+	padding-bottom: 20px;
+	background: #fff;
+}
+
+.my-good-looking-boxes {
+
+	&.responsive > .col-1-4 {
+		@include bp( $mini-tablet ) {
+			width: $col-1-2;
+//			margin-bottom: 20px;
+
+			&:nth-child(odd) {
+				clear: left;
+			}
+		}
+		@include bp( $mobile ) {
+			width: $col-1-1;
+			clear: left;
+
+			&:nth-child(even) {
+				clear: none;
+			}
+		}
+	}
+}
+
+.box {
+	margin-top: 20px;
+	padding: 50px 0;
+}
+
+
