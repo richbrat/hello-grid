@@ -1,122 +1,148 @@
 
-
-// TODO:
-// Ingen vertikal margin i griddet
-// Rensa järnet bland grid related styles
-
-
 @import 'grid-config';
 
-.rage-wrapper {
-	width: 100%;
-}
 
-.rage-grid {
-	max-width: $site-wrapper;
-	margin: 0 auto;
-	padding: 0 20px;
-}
+// Mixins
 
-.rage { margin: 20px 0; padding: 20px; }
-
-// Grid selectors
-.site-wrapper {
-	max-width: $site-wrapper;
-	margin: 0 auto;
-	background: #fff;
-}
-
-.grid { width: 100%; padding: 0 20px; }
-
-[class*='col-'] {
-	float: left;
-}
-
-.col-1-1 { width: $col-1-1; }
-.col-3-4 { width: $col-3-4; }
-.col-2-3 { width: $col-2-3; }
-.col-3-5 { width: $col-3-5; }
-.col-1-2 { width: $col-1-2; }
-.col-2-5 { width: $col-2-5; }
-.col-1-3 { width: $col-1-3; }
-.col-1-4 { width: $col-1-4; }
-.col-1-8 { width: $col-1-8; }
-
-.grid:after, .rage-grid:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-*, *:after, *:before {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
-[class*='col-'] {
-	padding-right: $gutter;
-}
-[class*='col-1-1'] {
-	padding-right: 0;
-}
-[class*='col-']:last-of-type {
-	padding-right: 0;
-}
-[class*='col-1-1']:last-of-type {
-	margin-right: 20px;
-
-	@include bp(tablet) {
-		padding-right: 0;
+	@mixin bp( $point ) {
+		@media ( max-width: $point ) { @content; }
 	}
-}
 
-.full.grid, .full.rage-grid {
-	padding-right: 0;
+	@mixin set-column( $old, $new ) {
+		$col-name: col-1-#{$new};
+		$width: map-get( $col-widths, $col-name );
+		
+		width: $width;
+
+		&:nth-of-type( #{$new}n+1 ) {
+			clear: left;
+		}
+
+		@if $new != $old {
+			&:nth-of-type(#{$old}n+1) {
+				clear: none;
+			}
+		}
+	}
+
+	@mixin columns( $desktop-cols, $tablet-cols, $mini-tablet-cols, $mobile-cols ) {
+		&:nth-of-type(#{$desktop-cols}n+1) {
+			clear: left;
+		}
+
+		@media ( max-width: $tablet ) {
+			@include set-column( $desktop-cols, $tablet-cols );
+		}
+		@media ( max-width: $mini-tablet ) {
+			@include set-column( $tablet-cols, $mini-tablet-cols );
+		}
+		@media ( max-width: $mobile ) {
+			@include set-column( $mini-tablet-cols, $mobile-cols );
+		}
+	}
+
+
+// The grid
+
+	.wrapper {
+		width: 100%;
+	}
+
+	.grid {
+		max-width: $site-wrapper;
+		margin: 0 auto;
+		padding: 0 20px;
+
+		@if variable-exists( grid-background ) {
+			background: $grid-background;
+		}
+
+		&.full {
+			padding-right: 0;
+
+			[class*='col-'] {
+				padding: 0 $gutter 0 0;
+			}
+		}
+	}
 
 	[class*='col-'] {
-		padding: 0 ($gutter) / 2 0 0;
+		float: left;
 	}
-}
+
+	@each $name, $width in $col-widths {
+		.#{$name} {
+			width: $width
+		}
+	}
+
+	.grid:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	*, *:after, *:before {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	[class*='col-'] {
+		padding-right: $gutter;
+	}
+	[class*='col-1-1'] {
+		padding-right: 0;
+	}
+	[class*='col-']:last-of-type {
+		padding-right: 0;
+	}
+	[class*='col-1-1']:last-of-type {
+		margin-right: 20px;
+
+		@include bp( $tablet ) {
+			padding-right: 0;
+		}
+	}
+
 
 // ###########################################################################
 // 
-// And that was the grid! Beyond this point is only grid related styles making 
-// those cols look nice.
+// And that was the grid! Beyond this point are only grid related styles making 
+// those cols look nice and wrappers to the grid. Please have a look to see how
+// to actually use the grid.
+// 
+// https://css-tricks.com/useful-nth-child-recipies/
+// https://css-tricks.com/examples/nth-child-tester/
 // 
 // ###########################################################################
 
 
-.site-wrapper { padding: 20px 0; background: #fff; }
 
 .full-background {
 	padding-bottom: 20px;
 	background: #2e3e4f;
 }
 
-.standard-page-article {
+.main {
 	padding-bottom: 20px;
-	background: #fff;
+//	background: #fff;
 }
 
-.my-good-looking-boxes {
+.responsive > .col-1-4 {
+	@include bp( $mini-tablet ) {
+		width: map-get( $col-widths, col-1-2 );
 
-	&.responsive > .col-1-4 {
-		@include bp( $mini-tablet ) {
-			width: $col-1-2;
-//			margin-bottom: 20px;
-
-			&:nth-child(odd) {
-				clear: left;
-			}
-		}
-		@include bp( $mobile ) {
-			width: $col-1-1;
+		&:nth-child(odd) {
 			clear: left;
+		}
+	}
+	@include bp( $mobile ) {
+		width: map-get( $col-widths, col-1-1 );
+		clear: left;
 
-			&:nth-child(even) {
-				clear: none;
-			}
+		&:nth-child(even) {
+			clear: none;
 		}
 	}
 }
@@ -125,5 +151,4 @@
 	margin-top: 20px;
 	padding: 50px 0;
 }
-
 

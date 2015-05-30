@@ -37,7 +37,7 @@ body {
 	letter-spacing: 3px;
 
 	&.col-3-5 {
-		@include bp( $tablet ) {
+		@media ( max-width: $tablet ) {
 			width: 100%;
 			margin-left: 0;
 		}
