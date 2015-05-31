@@ -1,6 +1,11 @@
 
-$site-wrapper: 980px;
-$gutter:       20px;
+$grid-width:  980px;
+$gutter:      20px;
+
+$desktop:     1020px;
+$tablet:      768px;
+$mini-tablet: 620px;
+$mobile:      480px;
 
 $col-widths: (
 	col-1-1: 100%,
@@ -14,13 +19,53 @@ $col-widths: (
 	col-1-8: 12.5%
 );
 
-$desktop:     1020px;
-$tablet:      768px;
-$mini-tablet: 620px;
-$mobile:      480px;
-
 
 // Uncomment and set these variables if you like, and the grid 
 // will use them automatically.
 
-$grid-background: #fff;
+$grid-background-color: #fff;
+
+
+// Useful mixins
+
+	@mixin set-column( $old, $new ) {
+		$col-name: col-1-#{$new};
+		$width: map-get( $col-widths, $col-name );
+		
+		width: $width;
+
+		&:nth-of-type( #{$new}n+1 ) {
+			clear: left;
+		}
+
+		@if $new != $old {
+			&:nth-of-type(#{$old}n+1) {
+				clear: none;
+			}
+		}
+	}
+
+	@mixin columns( $desktop-cols, $tablet-cols, $mini-tablet-cols, $mobile-cols ) {
+		&:nth-of-type(#{$desktop-cols}n+1) {
+			clear: left;
+		}
+
+		@media ( max-width: $tablet ) {
+			@include set-column( $desktop-cols, $tablet-cols );
+		}
+		@media ( max-width: $mini-tablet ) {
+			@include set-column( $tablet-cols, $mini-tablet-cols );
+		}
+		@media ( max-width: $mobile ) {
+			@include set-column( $mini-tablet-cols, $mobile-cols );
+		}
+	}
+
+	@mixin full-bg( $color ) {
+		background: $color;
+
+		.grid {
+			background: $color;
+		}
+	}
+

@@ -15,6 +15,72 @@ body {
 	color: #fff;
 }
 
+.pay-extra-attention-to-this {
+	@include full-bg( #2e3e4f );
+}
+
+.i-need-to-be-vertically-aligned {
+	padding-top: 20px;
+}
+
+.grid {
+	padding-bottom: $gutter;
+}
+
+.responsive {
+	padding-bottom: 0;
+
+	> .col-1-4 {
+		margin-bottom: $gutter;
+
+		> .box {
+			background: $primary;
+		}
+
+		@media ( max-width: $tablet ) {
+			width: map-get( $col-widths, col-1-2 );
+			padding-bottom: 0;
+
+			&:nth-child(odd) {
+				clear: left;
+			}
+		}
+		@media ( max-width: $mobile ) {
+			width: map-get( $col-widths, col-1-1 );
+			clear: left;
+			margin-bottom: $gutter;
+
+			&:nth-child(even) {
+				clear: none;
+			}
+		}
+	}
+}
+
+.box {
+	padding: 50px $gutter;
+	background: $secondary;
+	font-size: 24px;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	word-break: break-word;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+
+	@media ( max-width: $tablet ) {
+		font-size: 18px;
+	}
+	@media ( max-width: $mobile ) {
+		font-size: 12px;
+		font-weight: 400;
+		letter-spacing: normal;
+		text-transform: none;
+	}
+}
+
 .logo {
 	height: 80px;
 	margin: 20px 0 20px 20%;
@@ -42,23 +108,5 @@ body {
 			margin-left: 0;
 		}
 	}
-
-	// @include bp( $tablet ) {
-	// 	height: 40px;
-	// 	font-size: 30px;
-	// 	line-height: 40px;
-	// }
-	// @include bp( $mini-tablet ) {
-	// 	font-size: 24px;
-	// }
 }
 
-
-.box {
-	background: $secondary;
-	font-size: 24px;
-	font-weight: 700;
-	text-align: center;
-	text-transform: uppercase;
-	letter-spacing: 3px;
-}

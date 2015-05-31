@@ -1,45 +1,30 @@
 
+// 
+// 
+//  (                                (   (   (      
+//  )\ )   (     (            (      )\ ))\ ))\ )   
+// (()/(   )\    )\ )   (     )\ )  (()/(()/(()/(   
+//  /(_)|(((_)( (()/(   )\   (()/(   /(_))(_))(_))  
+// (_))  )\ _ )\ /(_))_((_)   /(_))_(_))(_))(_))_   
+// | _ \ (_)_\(_|_)) __| __| (_)) __| _ \_ _||   \  
+// |   /  / _ \   | (_ | _|    | (_ |   /| | | |) | 
+// |_|_\ /_/ \_\   \___|___|    \___|_|_\___||___/  
+//                                                  
+// 
+// Along with _grid-config.scss, this is the grid! In _grid-config.scss there
+// are some useful mixins, examples of how to use these mixins can be found in
+// irrelevant-for-the-grid.scss. Otherwise, that file only contains grid 
+// related styles making those cols and wrappers look nice. Please have a look
+// though to see how to actually use the grid.
+// 
+// 
+// https://css-tricks.com/useful-nth-child-recipies/
+// https://css-tricks.com/examples/nth-child-tester/
+// 
+// ###########################################################################
+
+
 @import 'grid-config';
-
-
-// Mixins
-
-	@mixin bp( $point ) {
-		@media ( max-width: $point ) { @content; }
-	}
-
-	@mixin set-column( $old, $new ) {
-		$col-name: col-1-#{$new};
-		$width: map-get( $col-widths, $col-name );
-		
-		width: $width;
-
-		&:nth-of-type( #{$new}n+1 ) {
-			clear: left;
-		}
-
-		@if $new != $old {
-			&:nth-of-type(#{$old}n+1) {
-				clear: none;
-			}
-		}
-	}
-
-	@mixin columns( $desktop-cols, $tablet-cols, $mini-tablet-cols, $mobile-cols ) {
-		&:nth-of-type(#{$desktop-cols}n+1) {
-			clear: left;
-		}
-
-		@media ( max-width: $tablet ) {
-			@include set-column( $desktop-cols, $tablet-cols );
-		}
-		@media ( max-width: $mini-tablet ) {
-			@include set-column( $tablet-cols, $mini-tablet-cols );
-		}
-		@media ( max-width: $mobile ) {
-			@include set-column( $mini-tablet-cols, $mobile-cols );
-		}
-	}
 
 
 // The grid
@@ -49,12 +34,12 @@
 	}
 
 	.grid {
-		max-width: $site-wrapper;
+		max-width: $grid-width;
 		margin: 0 auto;
 		padding: 0 20px;
 
-		@if variable-exists( grid-background ) {
-			background: $grid-background;
+		@if variable-exists( grid-background-color ) {
+			background: $grid-background-color;
 		}
 
 		&.full {
@@ -100,55 +85,8 @@
 	[class*='col-1-1']:last-of-type {
 		margin-right: 20px;
 
-		@include bp( $tablet ) {
+		@media ( max-width: $tablet ) {
 			padding-right: 0;
 		}
 	}
-
-
-// ###########################################################################
-// 
-// And that was the grid! Beyond this point are only grid related styles making 
-// those cols look nice and wrappers to the grid. Please have a look to see how
-// to actually use the grid.
-// 
-// https://css-tricks.com/useful-nth-child-recipies/
-// https://css-tricks.com/examples/nth-child-tester/
-// 
-// ###########################################################################
-
-
-
-.full-background {
-	padding-bottom: 20px;
-	background: #2e3e4f;
-}
-
-.main {
-	padding-bottom: 20px;
-//	background: #fff;
-}
-
-.responsive > .col-1-4 {
-	@include bp( $mini-tablet ) {
-		width: map-get( $col-widths, col-1-2 );
-
-		&:nth-child(odd) {
-			clear: left;
-		}
-	}
-	@include bp( $mobile ) {
-		width: map-get( $col-widths, col-1-1 );
-		clear: left;
-
-		&:nth-child(even) {
-			clear: none;
-		}
-	}
-}
-
-.box {
-	margin-top: 20px;
-	padding: 50px 0;
-}
 
