@@ -1,6 +1,5 @@
 # Projektspecifikt
-css/*.css
-css/*.css.map
+scss
 
 # Mac OS X stuff
 .DS_Store
