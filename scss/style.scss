@@ -3,8 +3,10 @@
 // Grunt or Gulp etc.
 
 @import 'grid-config';
-// @import 'config'; // This could be your own custom config file overwriting the variables from _grid-config.scss
+
+// This could be your own custom config file overwriting the variables from _grid-config.scss
+// @import 'config';
+
 @import 'normalize';
-@import 'open-sans';
 @import 'grid';
 @import 'irrelevant-for-the-grid';
