@@ -1,4 +1,8 @@
 
+// If you need to set other values to these variables you can add your own 
+// sass config file and overwrite them as long as that fil is imported 
+// after this fil and before _grid.scss.
+
 $grid-width:  980px;
 $gutter:      20px;
 
@@ -6,6 +10,8 @@ $desktop:     1020px;
 $tablet:      768px;
 $mini-tablet: 620px;
 $mobile:      480px;
+
+$grid-background-color: #fff;
 
 $col-widths: (
 	col-1-1: 100%,
@@ -33,30 +39,22 @@ $offset-widths: (
 );
 
 
-// Uncomment and set these variables if you like, and the grid 
-// will use them automatically.
-
-$grid-background-color: #fff;
+// Useful mixins (see '_irrelevant-for-the-grid.scss' on how to use it)
 
 
-// Useful mixins
+	// 'full-bg' adds a full width background color
 
-	@mixin set-column( $old, $new ) {
-		$col-name: col-1-#{$new};
-		$width: map-get( $col-widths, $col-name );
-		
-		width: $width;
+	@mixin full-bg( $color ) {
+		background: $color;
 
-		&:nth-of-type( #{$new}n+1 ) {
-			clear: left;
-		}
-
-		@if $new != $old {
-			&:nth-of-type(#{$old}n+1) {
-				clear: none;
-			}
+		.grid {
+			background: $color;
 		}
 	}
+
+
+	// 'columns' is an experimental feature so far, use with caution. It is 
+	// supposed to add responsiveness to a div pattern.
 
 	@mixin columns( $desktop-cols, $tablet-cols, $mini-tablet-cols, $mobile-cols ) {
 		&:nth-of-type(#{$desktop-cols}n+1) {
@@ -74,11 +72,23 @@ $grid-background-color: #fff;
 		}
 	}
 
-	@mixin full-bg( $color ) {
-		background: $color;
 
-		.grid {
-			background: $color;
+	// 'set-column' is only a helper mixin for the 'columns' mixin and is 
+	// not to be used separately (unless you know what you are doing).
+
+	@mixin set-column( $old, $new ) {
+		$col-name: col-1-#{$new};
+		$width: map-get( $col-widths, $col-name );
+		
+		width: $width;
+
+		&:nth-of-type( #{$new}n+1 ) {
+			clear: left;
+		}
+
+		@if $new != $old {
+			&:nth-of-type(#{$old}n+1) {
+				clear: none;
+			}
 		}
 	}
-

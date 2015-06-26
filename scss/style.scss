@@ -1,0 +1,10 @@
+
+// You need to import the files in this order or concatenate them using 
+// Grunt or Gulp etc.
+
+@import 'grid-config';
+// @import 'config'; // This could be your own custom config file overwriting the variables from _grid-config.scss
+@import 'normalize';
+@import 'open-sans';
+@import 'grid';
+@import 'irrelevant-for-the-grid';
