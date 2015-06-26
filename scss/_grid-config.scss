@@ -11,7 +11,9 @@ $tablet:      768px;
 $mini-tablet: 620px;
 $mobile:      480px;
 
-$grid-background-color: #fff;
+// If you're using a background color or image you might want this.
+// Just uncomment it and you're done!
+// $grid-background-color: #fff;
 
 $col-widths: (
 	col-1-1: 100%,

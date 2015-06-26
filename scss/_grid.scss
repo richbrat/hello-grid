@@ -54,13 +54,13 @@
 }
 
 @each $name, $width in $col-widths {
-	div.#{$name} {
+	div.#{$name}, .#{$name} {
 		width: $width
 	}
 }
 
 @each $name, $width in $offset-widths {
-	div.#{$name} {
+	div.#{$name}, .#{$name} {
 		margin-left: $width
 	}
 }
