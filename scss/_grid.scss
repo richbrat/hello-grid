@@ -34,7 +34,7 @@
 .grid {
 	max-width: $grid-width;
 	margin: 0 auto;
-	padding: 0 20px;
+	padding: 0 $gutter;
 
 	@if variable-exists( grid-background-color ) {
 		background: $grid-background-color;
